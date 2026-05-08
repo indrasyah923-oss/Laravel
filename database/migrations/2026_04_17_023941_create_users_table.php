@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_items', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
     $table->id();
-    $table->foreignId('order_id')->constrained()->cascadeOnDelete();
-    $table->foreignId('product_id')->constrained()->cascadeOnDelete();
-    $table->integer('qty');
-    $table->decimal('price', 12, 2);
-    $table->decimal('subtotal', 12, 2);
+    $table->string('name', 100);
+    $table->string('email', 120)->unique();
+    $table->enum('role', ['siswa', 'guru','admin'])->default('siswa');
+    $table->string('password');
+    $table->timestamps();
 });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_items');
+        Schema::dropIfExists('users');
     }
 };
